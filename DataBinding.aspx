@@ -149,6 +149,16 @@
           
             <asp:TextBox ID="tb_DisplayMasina" runat="server" Height="138px" Width="905px"></asp:TextBox>
             <br />
+            <br />
+            <br />
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                <asp:ListItem Value="Alegeti Tip Grafic"></asp:ListItem>
+                <asp:ListItem Value="Bare"></asp:ListItem>
+                <asp:ListItem Value="Linie"></asp:ListItem>
+                <asp:ListItem Value="Pie"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
+            <br />
           
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ITP2" style="margin-right: 44px" Width="414px" DataKeyNames="Id">
                 <Columns>
@@ -165,7 +175,7 @@
                 DeleteCommand="DELETE FROM ITP WHERE Id=@Id;" InsertCommand="INSERT INTO ITP(Id, Data, Descriere, Proprietar, Km) VALUES (,,,,)"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Id ITP"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:masini_itpConnectionString %>" InsertCommand="INSERT INTO Masini_ITP(Id, Id_Masina, Id_ITP) VALUES (,,)" SelectCommand="SELECT * FROM [Masini_ITP]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="ITP_Masini" runat="server" ConnectionString="<%$ ConnectionStrings:masini_itpConnectionString %>" InsertCommand="INSERT INTO Masini_ITP(Id, Id_Masina, Id_ITP) VALUES (,,)" SelectCommand="SELECT * FROM [Masini_ITP]"></asp:SqlDataSource>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label2" runat="server" Text="ID Masina"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

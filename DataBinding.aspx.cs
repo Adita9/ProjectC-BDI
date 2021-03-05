@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 using System.Collections;
 
 namespace NeagoeAdrianProiect
@@ -16,7 +17,7 @@ namespace NeagoeAdrianProiect
 
         }
 
-       
+
         protected void Button1_Click(object sender, EventArgs e)
         {
 
@@ -36,7 +37,7 @@ namespace NeagoeAdrianProiect
             p3.Value = tb_Data.Text;
             p4.Value = tb_Descriere.Text;
             p5.Value = (tb_Proprietar.Text);
-            p6.Value =int.Parse(tb_Km.Text);
+            p6.Value = int.Parse(tb_Km.Text);
 
 
             p7.Value = int.Parse(tb_IdITP.Text);
@@ -78,7 +79,7 @@ namespace NeagoeAdrianProiect
                 myCon2.Open();
                 myCMD2.ExecuteNonQuery();
                 tb_Consola.Text += "\r\nInsert in tabela de legatura ok.";
-               
+
             }
             catch (Exception ex)
             {
@@ -105,10 +106,10 @@ namespace NeagoeAdrianProiect
             tb_DisplayMasina.Text = "";
             SqlConnection myCon2 = new SqlConnection(@"Data Source=DESKTOP-746A5F2\LOCALHOST;Initial Catalog=masini_itp;Integrated Security=True;Pooling=False;MultipleActiveResultSets=true");
 
-            string query = "SELECT * FROM Masini_ITP WHERE Id_Masina = " +dp_Masini.Text;
+            string query = "SELECT * FROM Masini_ITP WHERE Id_Masina = " + dp_Masini.Text;
 
             SqlCommand myCMD2 = new SqlCommand(query, myCon2);
-            
+
 
 
             var list = new ArrayList();
@@ -126,9 +127,9 @@ namespace NeagoeAdrianProiect
                         string data2 = (reader.GetInt32(1)).ToString();
                         string data3 = (reader.GetInt32(2)).ToString();
                         list.Add(data1);
-                    } 
+                    }
                 }
-               
+
 
                 reader.Close();
                 myCon2.Close();
@@ -142,12 +143,14 @@ namespace NeagoeAdrianProiect
 
 
 
-            try {
+            try
+            {
                 myCon2.Open();
 
-                foreach(string indice in list){
+                foreach (string indice in list)
+                {
 
-                    string query2= "SELECT * FROM ITP WHERE Id= " + indice;
+                    string query2 = "SELECT * FROM ITP WHERE Id= " + indice;
 
                     SqlCommand myCMD3 = new SqlCommand(query2, myCon2);
 
@@ -158,23 +161,26 @@ namespace NeagoeAdrianProiect
                         while (reader.Read())
                         {
                             string data1 = (reader.GetInt32(0)).ToString();
-                         
+
                             DateTime data2 = reader.GetDateTime(1);
                             string data3 = (reader.GetString(2)).ToString();
-                           string data4 = (reader.GetString(3)).ToString();
+                            string data4 = (reader.GetString(3)).ToString();
                             string data5 = (reader.GetDecimal(4)).ToString();
+
+                            string newLine = Environment.NewLine;
 
                             tb_DisplayMasina.Text += "\r\n ITP realizat la data de" + data2.ToString()
                                + "\r\n cu descrierea - " + data3.ToString()
                                + "\r\n proprietarul - " + data4
-                               + "\r\n si km -" + data5;
+                               + "\r\n si km -" + data5 + newLine;
+                            
 
                         }
 
                     }
                     myCMD3.Cancel();
 
-                     
+
                 }
 
 
@@ -190,6 +196,36 @@ namespace NeagoeAdrianProiect
 
         protected void dp_Masini_PreRender(object sender, EventArgs e)
         {
+
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            Cache["CacheMasini"] = dp_Masini.Text;
+
+
+            DataSourceSelectArguments args2 = new DataSourceSelectArguments();
+            DataView dateViewITP = (DataView)ITP2.Select(args2);
+            DataTable dateTableITP = dateViewITP.ToTable();
+            DataSet dataSetMasinaITP = new DataSet(); dataSetMasinaITP.Tables.Add(dateTableITP);
+            Cache["CacheITP"] = dataSetMasinaITP;
+
+
+            DataSourceSelectArguments args3 = new DataSourceSelectArguments();
+            DataView dateViewITP_Masini = (DataView)ITP_Masini.Select(args3);
+            DataTable dateTableITP_Masini = dateViewITP_Masini.ToTable();
+            DataSet dataSetMasinaITP_Masini = new DataSet(); dataSetMasinaITP_Masini.Tables.Add(dateTableITP_Masini);
+            Cache["CacheMasini_ITP"] = dataSetMasinaITP_Masini;
+
+
+            Response.Redirect("Graph.aspx?tip=" + DropDownList1.SelectedItem.Text);
+
+        }
+
+        protected void DropDownList1_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+
 
         }
     }

@@ -60,6 +60,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\..\..\Desktop\ProiectBDI_StaicuAndreeaLaura\Proiect_AndreeaStaicu\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph.Web">
+      <HintPath>..\..\..\Desktop\ProiectBDI_StaicuAndreeaLaura\Proiect_AndreeaStaicu\ZedGraph.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -68,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBinding.aspx" />
+    <Content Include="Graph.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +84,13 @@
     </Compile>
     <Compile Include="DataBinding.aspx.designer.cs">
       <DependentUpon>DataBinding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Graph.aspx.cs">
+      <DependentUpon>Graph.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Graph.aspx.designer.cs">
+      <DependentUpon>Graph.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
