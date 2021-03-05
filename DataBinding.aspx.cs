@@ -228,5 +228,48 @@ namespace NeagoeAdrianProiect
 
 
         }
+
+        protected void tb_DisplayMasina_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void dp_Combustibil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-746A5F2\LOCALHOST;Initial Catalog=masini_itp;Integrated Security=True;Pooling=False;MultipleActiveResultSets=true");
+
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+
+            SqlCommand command = new SqlCommand("NumarMasiniInFunctieDeCombustibil", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter productName = command.Parameters.Add(new SqlParameter("@Combustibil", SqlDbType.VarChar));
+            productName.Direction = ParameterDirection.Input;
+            command.Parameters["@Combustibil"].Value = dp_Combustibil.Text;
+
+            SqlParameter rezultat = command.Parameters.Add(new SqlParameter("@Rezultat", SqlDbType.Float));
+            rezultat.Direction = ParameterDirection.Output;
+
+            SqlDataReader dataReader = command.ExecuteReader();
+            try
+            {
+                float finalResult = float.Parse(command.Parameters["@Rezultat"].Value.ToString());
+                tb_Combustibil.Text = "";
+                tb_Combustibil.Text += finalResult + " masini pe " + dp_Combustibil.Text;
+            }
+            catch (Exception ex)
+            {
+                tb_Combustibil.Text += ex.Message;
+            }
+
+            dataReader.Close();
+            connection.Close();
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

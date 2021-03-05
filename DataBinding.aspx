@@ -147,7 +147,7 @@
             </asp:DropDownList>
             <asp:SqlDataSource ID="Masini" runat="server" ConnectionString="<%$ ConnectionStrings:masini_itpConnectionString %>" SelectCommand="SELECT * FROM [Masini]"></asp:SqlDataSource>
           
-            <asp:TextBox ID="tb_DisplayMasina" runat="server" Height="138px" Width="905px"></asp:TextBox>
+            <asp:TextBox ID="tb_DisplayMasina" runat="server" Height="138px" Width="905px" OnTextChanged="tb_DisplayMasina_TextChanged"></asp:TextBox>
             <br />
             <br />
             <br />
@@ -160,7 +160,7 @@
             <br />
             <br />
           
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ITP2" style="margin-right: 44px" Width="414px" DataKeyNames="Id">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ITP2" style="margin-right: 44px" Width="414px" DataKeyNames="Id" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                 <Columns>
                     <asp:CommandField ButtonType="Button" ShowEditButton="True" />
                     <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
@@ -172,19 +172,19 @@
                 </Columns>
             </asp:GridView>
             <asp:SqlDataSource ID="ITP2" runat="server" ConnectionString="<%$ ConnectionStrings:masini_itpConnectionString %>" SelectCommand="SELECT * FROM [ITP]" UpdateCommand="UPDATE ITP SET Data=@Data,Descriere=@Descriere,Proprietar=@Proprietar,Km=@Km WHERE Id=@Id"
-                DeleteCommand="DELETE FROM ITP WHERE Id=@Id;" InsertCommand="INSERT INTO ITP(Id, Data, Descriere, Proprietar, Km) VALUES (,,,,)"></asp:SqlDataSource>
+                DeleteCommand="DELETE FROM MASINI_ITP WHERE Id=@Id; DELETE FROM ITP WHERE Id=@Id;" InsertCommand="INSERT INTO ITP(Id, Data, Descriere, Proprietar, Km) VALUES (,,,,)"></asp:SqlDataSource>
             <asp:Label ID="Label1" runat="server" Text="Id ITP"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:SqlDataSource ID="ITP_Masini" runat="server" ConnectionString="<%$ ConnectionStrings:masini_itpConnectionString %>" InsertCommand="INSERT INTO Masini_ITP(Id, Id_Masina, Id_ITP) VALUES (,,)" SelectCommand="SELECT * FROM [Masini_ITP]"></asp:SqlDataSource>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label2" runat="server" Text="ID Masina"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label3" runat="server" Text="Data"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
             <asp:Label ID="Label4" runat="server" Text="Descriere"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label5" runat="server" Text="Proprietar"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label6" runat="server" Text="Km"></asp:Label>
             <br />
             <asp:TextBox ID="tb_IdITP" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
@@ -197,7 +197,15 @@
             <br />
             <asp:TextBox ID="tb_Consola" runat="server" Height="261px" Width="797px"></asp:TextBox>
             <br />
+            <br />
+            <br />
+            <br />
         </div>
+        <asp:DropDownList ID="dp_Combustibil" runat="server" AutoPostBack="True" OnSelectedIndexChanged="dp_Combustibil_SelectedIndexChanged">
+            <asp:ListItem Value="Benzina">Benzina</asp:ListItem>
+            <asp:ListItem Value="Diesel"></asp:ListItem>
+        </asp:DropDownList>
+        <asp:TextBox ID="tb_Combustibil" runat="server" Width="313px"></asp:TextBox>
     </form>
 </body>
 </html>
